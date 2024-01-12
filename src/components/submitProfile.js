@@ -1,6 +1,6 @@
 import { closePopup } from "./modal";
 
-export function handleFormSubmit(evt) {
+export function handleProfileSubmit(evt) {
     evt.preventDefault();
 
     const formElement = document.querySelector('[name="edit-profile"]');
