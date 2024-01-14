@@ -1,5 +1,7 @@
 import { openPopupCard } from './modal';
 
+export const cardContainer = document.querySelector('.places__list');
+
 export function createCard(item, deleteCard, openPopupCard, likeCard) {
   const cardTemplate = document.querySelector('#card-template').content;
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
@@ -29,7 +31,6 @@ export function likeCard(card) {
 }
 
 export function addCards(initCardsArray, deleteCard, likeCard) {
-  const cardContainer = document.querySelector('.places__list');
   initCardsArray.forEach((item) => {
     const cardElement = createCard(item, deleteCard, openPopupCard, likeCard);
     cardContainer.append(cardElement);

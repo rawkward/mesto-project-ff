@@ -1,10 +1,9 @@
 import { openPopupCard, closePopup } from './modal';
-import { createCard, deleteCard, likeCard } from './card';
+import { createCard, deleteCard, likeCard, cardContainer } from './card';
 
 export function handleCardSubmit(evt) {
   evt.preventDefault();
 
-  const cardContainer = document.querySelector('.places__list');
   const formElement = document.querySelector('[name="new-place"]');
   const nameInput = formElement.querySelector('.popup__input_type_card-name');
   const linkInput = formElement.querySelector('.popup__input_type_url');

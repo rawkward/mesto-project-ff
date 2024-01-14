@@ -1,11 +1,19 @@
-export function openPopup(evt) {
-  evt.classList.add('popup_is-animated');
-  evt.classList.add('popup_is-opened');
+import { profileTitle, profileDescription, formElement, nameInput, jobInput } from "./submitProfile";
 
-  const popupCloseButton = evt.querySelector('.popup__close');
+export function openPopup(popup) {
+  popup.classList.add('popup_is-animated');
+  
+  setTimeout(() => {
+    popup.classList.add("popup_is-opened");
+  }, 1);
+
+  const popupCloseButton = popup.querySelector('.popup__close');
+
+  nameInput.value = profileTitle.textContent;
+  jobInput.value = profileDescription.textContent;
 
   popupCloseButton.addEventListener('click', closePopup);
-  evt.addEventListener('click', closePopupOverlay);
+  popup.addEventListener('click', closePopupOverlay);
   document.addEventListener('keydown', closePopupEsc);
 }
 
