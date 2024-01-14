@@ -1,4 +1,4 @@
-import { openPopupCard, closePopup } from './modal';
+import { openPopup, closePopup } from './modal';
 import { createCard, deleteCard, likeCard, cardContainer } from './card';
 
 export function handleCardSubmit(evt) {
@@ -16,7 +16,7 @@ export function handleCardSubmit(evt) {
     link,
   };
 
-  const newCard = createCard(item, deleteCard, openPopupCard, likeCard);
+  const newCard = createCard(item, deleteCard, openPopup, likeCard);
   cardContainer.prepend(newCard);
 
   formElement.reset();

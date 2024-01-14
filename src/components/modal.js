@@ -1,36 +1,39 @@
 import { profileTitle, profileDescription, formElement, nameInput, jobInput } from "./submitProfile";
 
-export function openPopup(popup) {
+const popupImage = document.querySelector('.popup__image');
+const popupCaption = document.querySelector('.popup__caption');
+
+export function openPopup(popup, cardImage, cardTitle) {
+
+  const popupCloseButton = popup.querySelector('.popup__close');
+
   popup.classList.add('popup_is-animated');
   
   setTimeout(() => {
     popup.classList.add("popup_is-opened");
   }, 1);
 
-  const popupCloseButton = popup.querySelector('.popup__close');
-
-  nameInput.value = profileTitle.textContent;
-  jobInput.value = profileDescription.textContent;
-
   popupCloseButton.addEventListener('click', closePopup);
   popup.addEventListener('click', closePopupOverlay);
   document.addEventListener('keydown', closePopupEsc);
+
+  if (popup.classList.contains('popup_type_edit')) {
+    openPopupProfile();
+  }
+
+  if (popup.classList.contains('popup_type_image')) {
+    openPopupCard(cardImage, cardTitle);
+  }
 }
 
-export function openPopupCard(evt, cardImage, cardTitle) {
-  const popupImage = evt.querySelector('.popup__image');
-  const popupCaption = evt.querySelector('.popup__caption');
-  const popupCloseButton = evt.querySelector('.popup__close');
+function openPopupProfile() {
+  nameInput.value = profileTitle.textContent;
+  jobInput.value = profileDescription.textContent;
+}
 
-  evt.classList.add('popup_is-animated');
-  evt.classList.add('popup_is-opened');
-
+function openPopupCard(cardImage, cardTitle) {
   popupImage.src = cardImage.src;
   popupCaption.textContent = cardTitle.textContent;
-
-  popupCloseButton.addEventListener('click', closePopup);
-  evt.addEventListener('click', closePopupOverlay);
-  document.addEventListener('keydown', closePopupEsc);
 }
 
 export function closePopup() {

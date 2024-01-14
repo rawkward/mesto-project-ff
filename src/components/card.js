@@ -1,8 +1,8 @@
-import { openPopupCard } from './modal';
+import { openPopup } from "./modal";
 
 export const cardContainer = document.querySelector('.places__list');
 
-export function createCard(item, deleteCard, openPopupCard, likeCard) {
+export function createCard(item, deleteCard, openPopup, likeCard) {
   const cardTemplate = document.querySelector('#card-template').content;
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
   const cardImage = cardElement.querySelector('.card__image');
@@ -15,9 +15,7 @@ export function createCard(item, deleteCard, openPopupCard, likeCard) {
   cardImage.alt = `Изображение локации ${item.name}`;
   cardTitle.textContent = item.name;
   deleteButton.addEventListener('click', () => deleteCard(cardElement));
-  cardImage.addEventListener('click', () =>
-    openPopupCard(popupCard, cardImage, cardTitle)
-  );
+  cardImage.addEventListener('click', () => openPopup(popupCard, cardImage, cardTitle));
   likeButton.addEventListener('click', () => likeCard(likeButton));
   return cardElement;
 }
@@ -32,7 +30,7 @@ export function likeCard(card) {
 
 export function addCards(initCardsArray, deleteCard, likeCard) {
   initCardsArray.forEach((item) => {
-    const cardElement = createCard(item, deleteCard, openPopupCard, likeCard);
+    const cardElement = createCard(item, deleteCard, openPopup, likeCard);
     cardContainer.append(cardElement);
   });
 }
