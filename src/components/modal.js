@@ -6,16 +6,8 @@ const popupCaption = document.querySelector('.popup__caption');
 
 export function openPopup(popup, cardImage, cardTitle) {
 
-  const popupCloseButton = popup.querySelector('.popup__close');
+  popup.classList.add("popup_is-opened");
 
-  popup.classList.add('popup_is-animated');
-  
-  setTimeout(() => {
-    popup.classList.add("popup_is-opened");
-  }, 1);
-
-  popupCloseButton.addEventListener('click', closePopup);
-  popup.addEventListener('click', closePopupOverlay);
   document.addEventListener('keydown', closePopupEsc);
 
   if (popup.classList.contains('popup_type_edit')) {
@@ -47,24 +39,26 @@ function openPopupCard(cardImage, cardTitle) {
   popupCaption.textContent = cardTitle.textContent;
 }
 
-export function closePopup() {
-  const activePopup = document.querySelector('.popup_is-opened');
+export function closePopup(popup) {
+  popup.classList.remove('popup_is-opened');
 
-  activePopup.classList.remove('popup_is-opened');
+  popup.removeEventListener('mousedown', (evt) => {
+    if (evt.target.classList.contains('popup_is-opened')) {
+        closePopup(popup)
+    }
 
-  popupCloseButton.removeEventListener('click', closePopup);
-  activePopup.removeEventListener('click', closePopupOverlay);
+    if (evt.target.classList.contains('popup__close')) {
+        closePopup(popup)
+    }
+  })
+
   document.removeEventListener('keydown', closePopupEsc);
 }
 
 function closePopupEsc(evt) {
-  if (evt.key === 'Escape') {
-    closePopup();
-  }
-}
+  const activePopup = document.querySelector('.popup_is-opened');
 
-function closePopupOverlay(evt) {
-  if (evt.target.classList.contains('popup_is-opened')) {
-    closePopup();
+  if (evt.key === 'Escape') {
+    closePopup(activePopup);
   }
 }

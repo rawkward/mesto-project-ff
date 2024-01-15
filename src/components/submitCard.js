@@ -8,6 +8,8 @@ export const cardLinkInput = cardFormElement.querySelector('.popup__input_type_u
 export function handleCardSubmit(evt) {
   evt.preventDefault();
 
+  const activePopup = document.querySelector('.popup_is-opened');
+
   const name = cardNameInput.value;
   const link = cardLinkInput.value;
 
@@ -22,5 +24,5 @@ export function handleCardSubmit(evt) {
 
   cardFormElement.reset();
 
-  closePopup();
+  closePopup(activePopup);
 }

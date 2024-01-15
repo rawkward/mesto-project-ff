@@ -10,11 +10,13 @@ export const profileJobInput = profileFormElement.querySelector('.popup__input_t
 export function handleProfileSubmit(evt) {
   evt.preventDefault();
 
+  const activePopup = document.querySelector('.popup_is-opened');
+
   const name = profileNameInput.value;
   const job = profileJobInput.value;
 
   profileTitle.textContent = name;
   profileDescription.textContent = job;
 
-  closePopup();
+  closePopup(activePopup);
 }
