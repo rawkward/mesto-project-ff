@@ -5,6 +5,8 @@ import { openPopup, closePopup, fillProfileInputs, clearCardInputs } from './com
 import { popupEdit, profileFormElement, handleProfileSubmit } from './components/submitProfile.js';
 import { popupNewCard, cardFormElement, handleCardSubmit } from './components/submitCard.js';
 
+import { enableValidation, clearValidation, profileForm, newPlaceForm, validationConfig } from './components/validation.js';
+
 
 const profileEditButton = document.querySelector('.profile__edit-button');
 const profileAddButton = document.querySelector('.profile__add-button');
@@ -16,11 +18,13 @@ addCards(initialCards, deleteCard, likeCard);
 function handleEditClick() {
   openPopup(popupEdit);
   fillProfileInputs();
+  clearValidation(profileForm, validationConfig);
 }
 
 function handleNewCardClick() {
   openPopup(popupNewCard);
   clearCardInputs();
+  clearValidation(newPlaceForm, validationConfig);
 }
 
 profileEditButton.addEventListener('click', handleEditClick);
@@ -40,3 +44,5 @@ popups.forEach((popup) => {
 
 profileFormElement.addEventListener('submit', handleProfileSubmit);
 cardFormElement.addEventListener('submit', handleCardSubmit);
+
+enableValidation(validationConfig);
