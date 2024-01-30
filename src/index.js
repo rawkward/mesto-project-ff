@@ -19,13 +19,13 @@ function handleEditClick() {
   openPopup(popupEdit);
   fillProfileInputs();
   clearValidation(profileForm, validationConfig);
-}
+};
 
 function handleNewCardClick() {
   openPopup(popupNewCard);
   clearCardInputs();
   clearValidation(newPlaceForm, validationConfig);
-}
+};
 
 profileEditButton.addEventListener('click', handleEditClick);
 profileAddButton.addEventListener('click', handleNewCardClick);

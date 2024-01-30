@@ -1,11 +1,11 @@
-.form__submit_inactive {
+.popup__button_disabled {
   background: transparent;
   color: #000;
   border: 2px solid #000;
   opacity: 0.2;
 }
 
-.form__submit_inactive:hover {
+.popup__button_disabled:hover {
   background: transparent;
   pointer-events: none;
 }
