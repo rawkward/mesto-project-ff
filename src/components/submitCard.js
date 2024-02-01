@@ -1,5 +1,6 @@
 import { openPopup, closePopup } from './modal';
 import { createCard, deleteCard, likeCard, cardContainer } from './card';
+import { saveNewCard, userId } from './api';
 
 export const popupNewCard = document.querySelector('.popup_type_new-card');
 
@@ -16,12 +17,18 @@ export function handleCardSubmit(evt) {
   const item = {
     name,
     link,
+    likes: [],
+    owner: {
+      _id: userId
+    }
   };
 
   const newCard = createCard(item, deleteCard, openPopup, likeCard);
   cardContainer.prepend(newCard);
 
   cardFormElement.reset();
+
+  saveNewCard(name, link);
 
   closePopup(popupNewCard);
 }

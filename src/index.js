@@ -1,20 +1,15 @@
 import './pages/index.css';
-import { initialCards } from './components/cards.js';
-import { addCards, deleteCard, likeCard } from './components/card.js';
 import { openPopup, closePopup, fillProfileInputs, clearCardInputs } from './components/modal.js';
 import { popupEdit, profileFormElement, handleProfileSubmit } from './components/submitProfile.js';
 import { popupNewCard, cardFormElement, handleCardSubmit } from './components/submitCard.js';
 
 import { enableValidation, clearValidation, profileForm, newPlaceForm, validationConfig } from './components/validation.js';
-import { getInitialCards, getUserData } from './components/api.js';
-
+import { getUserData, getCards } from './components/api.js';
 
 const profileEditButton = document.querySelector('.profile__edit-button');
 const profileAddButton = document.querySelector('.profile__add-button');
 const popups = document.querySelectorAll('.popup')
 
-
-addCards(initialCards, deleteCard, likeCard);
 
 function handleEditClick() {
   openPopup(popupEdit);
@@ -46,7 +41,4 @@ popups.forEach((popup) => {
 profileFormElement.addEventListener('submit', handleProfileSubmit);
 cardFormElement.addEventListener('submit', handleCardSubmit);
 
-
-getUserData();
-getInitialCards();
 enableValidation(validationConfig);

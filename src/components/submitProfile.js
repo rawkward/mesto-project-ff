@@ -1,3 +1,4 @@
+import { saveUserData } from './api';
 import { closePopup } from './modal';
 
 export const profileTitle = document.querySelector('.profile__title');
@@ -18,5 +19,6 @@ export function handleProfileSubmit(evt) {
   profileTitle.textContent = name;
   profileDescription.textContent = job;
 
+  saveUserData();
   closePopup(popupEdit);
 }

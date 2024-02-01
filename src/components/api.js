@@ -1,4 +1,8 @@
 import { profileTitle, profileDescription } from "./submitProfile";
+import { createCard, cardContainer, deleteCard, likeCard } from "./card";
+import { openPopup } from "./modal";
+
+export let userId = '';
 
 const profileAvatar = document.querySelector('.profile__image');
 
@@ -22,12 +26,73 @@ export const getUserData = () => {
 
     return Promise.reject(`Ошибка: ${res.status}`);
   })
+}
 
-  .then(user => {
-    fillUserData(user);
+export const getCards = () => {
+  return fetch(`${config.baseUrl}/cards`, {
+    headers: config.headers
   })
 
-  .catch(err => console.log(err));
+  .then(res => {
+    if (res.ok) {
+      return res.json();
+    }
+
+    return Promise.reject(`Ошибка: ${res.status}`);
+  })
+}
+
+export const saveUserData = () => {
+  return fetch(`${config.baseUrl}/users/me`, {
+    method: 'PATCH',
+    headers: config.headers,
+    body: JSON.stringify({
+      name: profileTitle.textContent,
+      about: profileDescription.textContent
+    })
+  })
+
+  .then(res => {
+    if (res.ok) {
+      return res.json();
+    }
+
+    return Promise.reject(`Ошибка: ${res.status}`);
+  })
+}
+
+export const saveNewCard = (name, link) => {
+  return fetch(`${config.baseUrl}/cards`, {
+    method: 'POST',
+    headers: config.headers,
+    body: JSON.stringify({
+      name,
+      link
+    })
+  })
+
+  .then(res => {
+    if (res.ok) {
+      return res.json();
+    }
+
+    return Promise.reject(`Ошибка: ${res.status}`);
+  })
+}
+
+export const deleteCardRequest = (cardObject) => {
+  return fetch(`${config.baseUrl}/cards/${cardObject._id}`, {
+    method: "DELETE",
+    headers: config.headers
+  })
+
+  .then(res => {
+    if (res.ok) {
+      return res.json();
+    }
+
+    return Promise.reject(`Ошибка: ${res.status}`);
+  })
 }
 
 const fillUserData = (user) => {
@@ -36,25 +101,19 @@ const fillUserData = (user) => {
   profileDescription.textContent = user.about;
 }
 
-export const getInitialCards = () => {
-    return fetch(`${config.baseUrl}/cards`, {
-      headers: config.headers
-    })
-
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-
-    .then(cards => {
-      console.log(cards);
-      fillInitialCards(cards);
-    })
+export function addCards(CardsArray) {
+  CardsArray.forEach((cardObject) => {
+    const cardElement = createCard(cardObject, deleteCard, openPopup, likeCard);
+    cardContainer.append(cardElement);
+  });
 }
 
-const fillInitialCards = (cards) => {
-  
-}
+Promise.all([getUserData(), getCards()])
+
+  .then(([userData, cardsArray]) => {
+    fillUserData(userData);
+    userId = userData._id;
+    addCards(cardsArray);
+  })
+
+  .catch(err => console.log(err));
