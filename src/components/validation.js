@@ -43,9 +43,6 @@ function toggleButtonState(inputList, buttonElement, validationConfig) {
   else {
     buttonElement.disabled = false;
     buttonElement.classList.remove(validationConfig.inactiveButtonClass);
-    //newPlaceForm.querySelector('.button').disabled = false;
-    //newPlaceForm.querySelector('.button').classList.remove('popup__button_disabled');
-    //console.log(buttonElement);
   }
 };
 

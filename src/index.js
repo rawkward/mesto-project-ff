@@ -6,6 +6,7 @@ import { popupEdit, profileFormElement, handleProfileSubmit } from './components
 import { popupNewCard, cardFormElement, handleCardSubmit } from './components/submitCard.js';
 
 import { enableValidation, clearValidation, profileForm, newPlaceForm, validationConfig } from './components/validation.js';
+import { getInitialCards, getUserData } from './components/api.js';
 
 
 const profileEditButton = document.querySelector('.profile__edit-button');
@@ -45,4 +46,7 @@ popups.forEach((popup) => {
 profileFormElement.addEventListener('submit', handleProfileSubmit);
 cardFormElement.addEventListener('submit', handleCardSubmit);
 
+
+getUserData();
+getInitialCards();
 enableValidation(validationConfig);

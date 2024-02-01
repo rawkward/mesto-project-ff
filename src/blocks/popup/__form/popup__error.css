@@ -1,7 +1,6 @@
 .popup__error {
-  font-size: 12px;
-  color: #f00;
-  display: none;
+  display: block;
+  min-block-size: 30px;
 }
 
 .popup__error:last-of-type {
