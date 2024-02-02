@@ -3,8 +3,9 @@ import { openPopup, closePopup, fillProfileInputs, clearCardInputs } from './com
 import { popupEdit, profileFormElement, handleProfileSubmit } from './components/submitProfile.js';
 import { popupNewCard, cardFormElement, handleCardSubmit } from './components/submitCard.js';
 
-import { enableValidation, clearValidation, profileForm, newPlaceForm, validationConfig } from './components/validation.js';
+import { enableValidation, clearValidation, profileForm, newPlaceForm, updateAvatarForm, validationConfig } from './components/validation.js';
 import { getUserData, getCards } from './components/api.js';
+import { updateAvatarButton, popupUpdateAvatar, handleUpdateAvatarSubmit } from './components/submitAvatar.js';
 
 const profileEditButton = document.querySelector('.profile__edit-button');
 const profileAddButton = document.querySelector('.profile__add-button');
@@ -23,8 +24,15 @@ function handleNewCardClick() {
   clearValidation(newPlaceForm, validationConfig);
 };
 
+function handleUpdateAvatarClick() {
+  openPopup(popupUpdateAvatar);
+  clearCardInputs();
+  clearValidation(updateAvatarForm, validationConfig)
+}
+
 profileEditButton.addEventListener('click', handleEditClick);
 profileAddButton.addEventListener('click', handleNewCardClick);
+updateAvatarButton.addEventListener('click', handleUpdateAvatarClick);
 
 popups.forEach((popup) => {
   popup.addEventListener('mousedown', (evt) => {
@@ -40,5 +48,6 @@ popups.forEach((popup) => {
 
 profileFormElement.addEventListener('submit', handleProfileSubmit);
 cardFormElement.addEventListener('submit', handleCardSubmit);
+updateAvatarForm.addEventListener('submit', handleUpdateAvatarSubmit);
 
 enableValidation(validationConfig);

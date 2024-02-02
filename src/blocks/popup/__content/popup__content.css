@@ -13,6 +13,10 @@
   min-height: fit-content;
 }
 
+.popup_type_update-avatar .popup__content {
+  min-height: fit-content;
+}
+
 @media screen and (max-width: 568px) {
   .popup__content {
     width: 100%;

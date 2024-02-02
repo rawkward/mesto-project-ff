@@ -1,5 +1,6 @@
 export const profileForm = document.forms['edit-profile'];
 export const newPlaceForm = document.forms['new-place'];
+export const updateAvatarForm = document.forms['update-avatar'];
 
 export const validationConfig = {
   formSelector: '.popup__form',

@@ -125,6 +125,24 @@ export const removeLikeCardRequest = (cardObject) => {
   })
 }
 
+export const saveAvatar = (avatar) => {
+  return fetch(`${config.baseUrl}/users/me/avatar`, {
+    method: 'PATCH',
+    headers: config.headers,
+    body: JSON.stringify({
+      avatar
+    })
+  })
+
+  .then(res => {
+    if (res.ok) {
+      return res.json();
+    }
+
+    return Promise.reject(`Ошибка: ${res.status}`);
+  })
+}
+
 const fillUserData = (user) => {
   profileAvatar.style = `background-image: url(${user.avatar})`;
   profileTitle.textContent = user.name;
@@ -135,7 +153,6 @@ export function addCards(CardsArray) {
   CardsArray.forEach((cardObject) => {
     const cardElement = createCard(cardObject, deleteCard, openPopup, likeCard);
     cardContainer.append(cardElement);
-    //showUserLikes(cardObject);
   });
 }
 
