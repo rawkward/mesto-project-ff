@@ -2,7 +2,6 @@ import './pages/index.css';
 import { openPopup, closePopup, fillProfileInputs, clearCardInputs } from './components/modal.js';
 import { popupEdit, profileFormElement, handleProfileSubmit } from './components/submitProfile.js';
 import { popupNewCard, cardFormElement, handleCardSubmit } from './components/submitCard.js';
-
 import { enableValidation, clearValidation, profileForm, newPlaceForm, updateAvatarForm, validationConfig } from './components/validation.js';
 import { updateAvatarButton, popupUpdateAvatar, handleUpdateAvatarSubmit } from './components/submitAvatar.js';
 

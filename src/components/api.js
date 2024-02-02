@@ -2,8 +2,7 @@ import { profileTitle, profileDescription } from "./submitProfile";
 import { createCard, cardContainer, deleteCard, likeCard } from "./card";
 import { openPopup } from "./modal";
 
-export let userId = '';
-
+export let userId;
 const profileAvatar = document.querySelector('.profile__image');
 
 export const config = {
@@ -143,7 +142,7 @@ export const saveAvatar = (avatar) => {
   })
 }
 
-const fillUserData = (user) => {
+export const fillUserData = (user) => {
   profileAvatar.style = `background-image: url(${user.avatar})`;
   profileTitle.textContent = user.name;
   profileDescription.textContent = user.about;
