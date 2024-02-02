@@ -4,7 +4,6 @@ import { popupEdit, profileFormElement, handleProfileSubmit } from './components
 import { popupNewCard, cardFormElement, handleCardSubmit } from './components/submitCard.js';
 
 import { enableValidation, clearValidation, profileForm, newPlaceForm, updateAvatarForm, validationConfig } from './components/validation.js';
-import { getUserData, getCards } from './components/api.js';
 import { updateAvatarButton, popupUpdateAvatar, handleUpdateAvatarSubmit } from './components/submitAvatar.js';
 
 const profileEditButton = document.querySelector('.profile__edit-button');

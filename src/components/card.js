@@ -1,4 +1,4 @@
-import { saveNewCard, userId, deleteCardRequest, addLikeCardRequest, removeLikeCardRequest } from "./api";
+import { userId, deleteCardRequest, addLikeCardRequest, removeLikeCardRequest } from "./api";
 import { closePopup, openPopup } from "./modal";
 import { fillCardData } from "./modal";
 
