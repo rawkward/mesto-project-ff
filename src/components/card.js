@@ -1,4 +1,4 @@
-import { saveNewCard, userId, deleteCardRequest } from "./api";
+import { saveNewCard, userId, deleteCardRequest, addLikeCardRequest, removeLikeCardRequest } from "./api";
 import { closePopup, openPopup } from "./modal";
 import { fillCardData } from "./modal";
 
@@ -20,9 +20,8 @@ export function createCard(cardObject, deleteCard, openPopup, likeCard) {
   cardImage.src = cardObject.link;
   cardImage.alt = `Изображение локации ${cardObject.name}`;
   cardTitle.textContent = cardObject.name;
-  if (cardObject.likes.length > 0) {
-    likeCounter.textContent = cardObject.likes.length;
-  };
+  
+  showLikes(cardObject, likeCounter);
 
   if (userId === cardObject.owner._id) {
     deleteButton.classList.remove('card__delete-button_inactive');
@@ -40,8 +39,9 @@ export function createCard(cardObject, deleteCard, openPopup, likeCard) {
   }
 
   cardImage.addEventListener('click', handleImageClick);
-  likeButton.addEventListener('click', () => likeCard(likeButton));
+  likeButton.addEventListener('click', () => likeCard(cardObject, likeButton, likeCounter));
 
+  showUserLikes(cardObject, likeButton);
   return cardElement;
 }
 
@@ -55,11 +55,48 @@ export function deleteCard(cardObject, cardElement) {
       closePopup(popupConfirm);
       confirmButton.removeEventListener('click', confirmDelete);
     })
+    .catch(err => console.log(err));
   }
 
   confirmButton.addEventListener('click', confirmDelete);
 }
 
-export function likeCard(card) {
-  card.classList.toggle('card__like-button_is-active');
+export function likeCard(cardObject, likeButton, likeCounter) {
+  if (!likeButton.classList.contains('card__like-button_is-active')) {
+    addLikeCardRequest(cardObject)
+      .then(res => {
+        likeButton.classList.add('card__like-button_is-active');
+        likeCounter.textContent = res.likes.length;
+        showLikes(res, likeCounter);
+      })
+      .catch(err => console.log(err));
+  }
+  else {
+    removeLikeCardRequest(cardObject)
+    .then(res => {
+      likeButton.classList.remove('card__like-button_is-active');
+      likeCounter.textContent = res.likes.length;
+      showLikes(res, likeCounter);
+    })
+    .catch(err => console.log(err));
+  }
+}
+
+function showLikes(cardObject, likeCounter) {
+  if (cardObject.likes.length > 0) {
+    return likeCounter.textContent = cardObject.likes.length;
+  }
+  else {
+    return likeCounter.textContent = '';
+  }
+}
+
+function showUserLikes(cardObject, likeButton) {
+  const hasUserLike = cardObject.likes.some(like => like._id === userId);
+  if (hasUserLike) {
+    likeButton.classList.add('card__like-button_is-active');
+  }
+  else {
+    likeButton.classList.remove('card__like-button_is-active');
+  }
 }

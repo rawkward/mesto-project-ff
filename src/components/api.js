@@ -82,7 +82,37 @@ export const saveNewCard = (name, link) => {
 
 export const deleteCardRequest = (cardObject) => {
   return fetch(`${config.baseUrl}/cards/${cardObject._id}`, {
-    method: "DELETE",
+    method: 'DELETE',
+    headers: config.headers
+  })
+
+  .then(res => {
+    if (res.ok) {
+      return res.json();
+    }
+
+    return Promise.reject(`Ошибка: ${res.status}`);
+  })
+}
+
+export const addLikeCardRequest = (cardObject) => {
+  return fetch(`${config.baseUrl}/cards/likes/${cardObject._id}`, {
+    method: 'PUT',
+    headers: config.headers
+  })
+
+  .then(res => {
+    if (res.ok) {
+      return res.json();
+    }
+
+    return Promise.reject(`Ошибка: ${res.status}`);
+  })
+}
+
+export const removeLikeCardRequest = (cardObject) => {
+  return fetch(`${config.baseUrl}/cards/likes/${cardObject._id}`, {
+    method: 'DELETE',
     headers: config.headers
   })
 
@@ -105,6 +135,7 @@ export function addCards(CardsArray) {
   CardsArray.forEach((cardObject) => {
     const cardElement = createCard(cardObject, deleteCard, openPopup, likeCard);
     cardContainer.append(cardElement);
+    //showUserLikes(cardObject);
   });
 }
 

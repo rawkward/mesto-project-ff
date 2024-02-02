@@ -11,24 +11,25 @@ export const cardLinkInput = cardFormElement.querySelector('.popup__input_type_u
 export function handleCardSubmit(evt) {
   evt.preventDefault();
 
-  const name = cardNameInput.value;
-  const link = cardLinkInput.value;
-
   const item = {
-    name,
-    link,
+    name: cardNameInput.value,
+    link: cardLinkInput.value,
     likes: [],
     owner: {
       _id: userId
     }
   };
 
+  saveNewCard(item.name, item.link)
+  .then((res) => {
+    item._id = res._id;
+  })
+  .catch(err => console.log(err));
+
   const newCard = createCard(item, deleteCard, openPopup, likeCard);
   cardContainer.prepend(newCard);
 
   cardFormElement.reset();
-
-  saveNewCard(name, link);
 
   closePopup(popupNewCard);
 }
