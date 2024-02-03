@@ -34,6 +34,24 @@ export const getCards = () => {
   })
 }
 
+export const saveAvatar = (avatar) => {
+  return fetch(`${config.baseUrl}/users/me/avatar`, {
+    method: 'PATCH',
+    headers: config.headers,
+    body: JSON.stringify({
+      avatar
+    })
+  })
+
+  .then(res => {
+    if (res.ok) {
+      return res.json();
+    }
+
+    return Promise.reject(`Ошибка: ${res.status}`);
+  })
+}
+
 export const saveUserData = (profileNameInput, profileJobInput) => {
   return fetch(`${config.baseUrl}/users/me`, {
     method: 'PATCH',
@@ -106,24 +124,6 @@ export const removeLikeCardRequest = (cardObject) => {
   return fetch(`${config.baseUrl}/cards/likes/${cardObject._id}`, {
     method: 'DELETE',
     headers: config.headers
-  })
-
-  .then(res => {
-    if (res.ok) {
-      return res.json();
-    }
-
-    return Promise.reject(`Ошибка: ${res.status}`);
-  })
-}
-
-export const saveAvatar = (avatar) => {
-  return fetch(`${config.baseUrl}/users/me/avatar`, {
-    method: 'PATCH',
-    headers: config.headers,
-    body: JSON.stringify({
-      avatar
-    })
   })
 
   .then(res => {

@@ -14,9 +14,10 @@ export function handleUpdateAvatarSubmit(evt) {
   renderLoading(true, submitAvatarButton);
 
   saveAvatar(avatarLinkInput.value)
-  .then(() => updateAvatarButton.style = `background-image: url(${avatarLinkInput.value})`)
+  .then(() => {
+    updateAvatarButton.style = `background-image: url(${avatarLinkInput.value})`;
+    closePopup(popupUpdateAvatar);
+  })
   .catch(err => console.log(err))
   .finally(() => renderLoading(false, submitAvatarButton));
-
-  closePopup(popupUpdateAvatar);
 }

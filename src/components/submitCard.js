@@ -10,36 +10,6 @@ export const cardNameInput = newPlaceForm.querySelector('.popup__input_type_card
 export const cardLinkInput = newPlaceForm.querySelector('.popup__input_type_url');
 const submitCardButton = newPlaceForm.querySelector('.popup__button');
 
-// export function handleCardSubmit(evt) {
-//   evt.preventDefault();
-
-//   renderLoading(true, submitCardButton);
-
-//   const newCardObject = {
-//     likes: [],
-//     owner: {},
-//   };
-
-//   getUserData()
-//   .then(res => newCardObject.owner._id = res._id)
-//   .catch(err => console.log(err));
-
-//   saveNewCard(cardNameInput.value, cardLinkInput.value)
-//   .then(() => {
-//     newCardObject.name = cardNameInput.value;
-//     newCardObject.link = cardLinkInput.value;
-//   })
-//   .catch(err => console.log(err))
-//   .finally(() => renderLoading(false, submitCardButton));
-
-//   const newCard = createCard(newCardObject, newCardObject.owner._id, deleteCard, openPopup, likeCard);
-//   cardContainer.prepend(newCard);
-
-//   newPlaceForm.reset();
-
-//   closePopup(popupNewCard);
-// }
-
 export function handleCardSubmit(evt) {
   evt.preventDefault();
 
@@ -64,14 +34,10 @@ export function handleCardSubmit(evt) {
         newCardObject._id = res._id;
         const newCard = createCard(newCardObject, userId, deleteCard, openPopup, likeCard);
         cardContainer.prepend(newCard);
+        newPlaceForm.reset();
+        closePopup(popupNewCard);
       });
     })
-    .catch(err => {
-      console.log(err);
-    })
-    .finally(() => {
-      renderLoading(false, submitCardButton);
-      newPlaceForm.reset();
-      closePopup(popupNewCard);
-    });
+    .catch(err => console.log(err))
+    .finally(() => renderLoading(false, submitCardButton));
 }

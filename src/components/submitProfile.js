@@ -21,10 +21,10 @@ export function handleProfileSubmit(evt) {
   .then(() => {
     profileTitle.textContent = profileNameInput.value;
     profileDescription.textContent = profileJobInput.value;
+    closePopup(popupEdit);
   })
   .catch(err => console.log(err))
   .finally(() => renderLoading(false, submitProfileButton));
-  closePopup(popupEdit);
 }
 
 export function renderLoading(isLoading, submitButton) {
