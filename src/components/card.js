@@ -1,4 +1,4 @@
-import { userId, deleteCardRequest, addLikeCardRequest, removeLikeCardRequest } from "./api";
+import { deleteCardRequest, addLikeCardRequest, removeLikeCardRequest } from "./api";
 import { closePopup, openPopup } from "./modal";
 import { fillCardData } from "./modal";
 
@@ -8,7 +8,7 @@ export const popupCard = document.querySelector('.popup_type_image');
 const popupConfirm = document.querySelector('.popup_type_confirm');
 const confirmButton = popupConfirm.querySelector('.popup__button')
 
-export function createCard(cardObject, deleteCard, openPopup, likeCard) {
+export function createCard(cardObject, userId, deleteCard, openPopup, likeCard) {
   const cardTemplate = document.querySelector('#card-template').content;
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
   const cardImage = cardElement.querySelector('.card__image');
@@ -41,7 +41,7 @@ export function createCard(cardObject, deleteCard, openPopup, likeCard) {
   cardImage.addEventListener('click', handleImageClick);
   likeButton.addEventListener('click', () => likeCard(cardObject, likeButton, likeCounter));
 
-  showUserLikes(cardObject, likeButton);
+  showUserLikes(cardObject, userId, likeButton);
   return cardElement;
 }
 
@@ -91,7 +91,7 @@ function showLikes(cardObject, likeCounter) {
   }
 }
 
-function showUserLikes(cardObject, likeButton) {
+function showUserLikes(cardObject, userId, likeButton) {
   const hasUserLike = cardObject.likes.some(like => like._id === userId);
   if (hasUserLike) {
     likeButton.classList.add('card__like-button_is-active');

@@ -1,4 +1,6 @@
 import './pages/index.css';
+import { getUserData, getCards} from './components/api.js';
+import { fillUserData, addCards } from './components/pageLoad.js';
 import { updateAvatarForm, updateAvatarButton, popupUpdateAvatar, handleUpdateAvatarSubmit } from './components/submitAvatar.js';
 import { popupEdit, profileForm, handleProfileSubmit } from './components/submitProfile.js';
 import { popupNewCard, newPlaceForm, handleCardSubmit } from './components/submitCard.js';
@@ -9,7 +11,6 @@ const profileEditButton = document.querySelector('.profile__edit-button');
 const profileAddButton = document.querySelector('.profile__add-button');
 
 const popups = document.querySelectorAll('.popup');
-
 
 function handleEditClick() {
   openPopup(popupEdit);
@@ -50,3 +51,13 @@ newPlaceForm.addEventListener('submit', handleCardSubmit);
 updateAvatarForm.addEventListener('submit', handleUpdateAvatarSubmit);
 
 enableValidation(validationConfig);
+
+Promise.all([getUserData(), getCards()])
+
+  .then(([userData, cardsArray]) => {
+    fillUserData(userData);
+    const userId = userData._id;
+    addCards(cardsArray, userId);
+  })
+
+  .catch(err => console.log(err));
