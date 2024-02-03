@@ -1,7 +1,3 @@
-export const profileForm = document.forms['edit-profile'];
-export const newPlaceForm = document.forms['new-place'];
-export const updateAvatarForm = document.forms['update-avatar'];
-
 export const validationConfig = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
@@ -11,7 +7,7 @@ export const validationConfig = {
   errorClass: 'popup__error_visible'
 };
 
-export function isValid(formElement, inputElement, validationConfig) {
+function isValid(formElement, inputElement, validationConfig) {
   if (inputElement.validity.patternMismatch) {
     inputElement.setCustomValidity(inputElement.dataset.errorPattern);
   }

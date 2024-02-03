@@ -1,13 +1,14 @@
 import './pages/index.css';
-import { openPopup, closePopup, fillProfileInputs, clearCardInputs } from './components/modal.js';
-import { popupEdit, profileFormElement, handleProfileSubmit } from './components/submitProfile.js';
-import { popupNewCard, cardFormElement, handleCardSubmit } from './components/submitCard.js';
-import { enableValidation, clearValidation, profileForm, newPlaceForm, updateAvatarForm, validationConfig } from './components/validation.js';
-import { updateAvatarButton, popupUpdateAvatar, handleUpdateAvatarSubmit } from './components/submitAvatar.js';
+import { updateAvatarForm, updateAvatarButton, popupUpdateAvatar, handleUpdateAvatarSubmit } from './components/submitAvatar.js';
+import { popupEdit, profileForm, handleProfileSubmit } from './components/submitProfile.js';
+import { popupNewCard, newPlaceForm, handleCardSubmit } from './components/submitCard.js';
+import { enableValidation, clearValidation, validationConfig } from './components/validation.js';
+import { openPopup, closePopup, fillProfileInputs, clearInputs } from './components/modal.js';
 
 const profileEditButton = document.querySelector('.profile__edit-button');
 const profileAddButton = document.querySelector('.profile__add-button');
-const popups = document.querySelectorAll('.popup')
+
+const popups = document.querySelectorAll('.popup');
 
 
 function handleEditClick() {
@@ -18,14 +19,14 @@ function handleEditClick() {
 
 function handleNewCardClick() {
   openPopup(popupNewCard);
-  clearCardInputs();
+  clearInputs(newPlaceForm);
   clearValidation(newPlaceForm, validationConfig);
 };
 
 function handleUpdateAvatarClick() {
   openPopup(popupUpdateAvatar);
-  clearCardInputs();
-  clearValidation(updateAvatarForm, validationConfig)
+  clearInputs(updateAvatarForm);
+  clearValidation(updateAvatarForm, validationConfig);
 }
 
 profileEditButton.addEventListener('click', handleEditClick);
@@ -44,8 +45,8 @@ popups.forEach((popup) => {
   })
 });
 
-profileFormElement.addEventListener('submit', handleProfileSubmit);
-cardFormElement.addEventListener('submit', handleCardSubmit);
+profileForm.addEventListener('submit', handleProfileSubmit);
+newPlaceForm.addEventListener('submit', handleCardSubmit);
 updateAvatarForm.addEventListener('submit', handleUpdateAvatarSubmit);
 
 enableValidation(validationConfig);

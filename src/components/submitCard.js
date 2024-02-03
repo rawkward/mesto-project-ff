@@ -5,10 +5,10 @@ import { renderLoading } from './submitProfile';
 
 export const popupNewCard = document.querySelector('.popup_type_new-card');
 
-export const cardFormElement = document.querySelector('[name="new-place"]');
-export const cardNameInput = cardFormElement.querySelector('.popup__input_type_card-name');
-export const cardLinkInput = cardFormElement.querySelector('.popup__input_type_url');
-const submitCardButton = cardFormElement.querySelector('.popup__button');
+export const newPlaceForm = document.forms['new-place'];
+export const cardNameInput = newPlaceForm.querySelector('.popup__input_type_card-name');
+export const cardLinkInput = newPlaceForm.querySelector('.popup__input_type_url');
+const submitCardButton = newPlaceForm.querySelector('.popup__button');
 
 export function handleCardSubmit(evt) {
   evt.preventDefault();
@@ -34,7 +34,7 @@ export function handleCardSubmit(evt) {
   const newCard = createCard(item, deleteCard, openPopup, likeCard);
   cardContainer.prepend(newCard);
 
-  cardFormElement.reset();
+  newPlaceForm.reset();
 
   closePopup(popupNewCard);
 }

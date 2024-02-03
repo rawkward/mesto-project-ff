@@ -1,9 +1,9 @@
 import { saveAvatar } from "./api";
-import { updateAvatarForm } from "./validation";
 import { closePopup } from "./modal";
 import { renderLoading } from "./submitProfile";
 
 export const updateAvatarButton = document.querySelector('.profile__image');
+export const updateAvatarForm = document.forms['update-avatar'];
 export const popupUpdateAvatar = document.querySelector('.popup_type_update-avatar');
 const avatarLinkInput = updateAvatarForm.querySelector('.popup__input_type_url');
 const submitAvatarButton = updateAvatarForm.querySelector('.popup__button');

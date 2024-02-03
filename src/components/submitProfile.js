@@ -6,10 +6,11 @@ export const profileDescription = document.querySelector('.profile__description'
 
 export const popupEdit = document.querySelector('.popup_type_edit');
 
-export const profileFormElement = document.querySelector('[name="edit-profile"]');
-export const profileNameInput = profileFormElement.querySelector('.popup__input_type_name');
-export const profileJobInput = profileFormElement.querySelector('.popup__input_type_description');
-const submitProfileButton = profileFormElement.querySelector('.popup__button');
+export const profileForm = document.forms['edit-profile'];
+export const profileNameInput = profileForm.querySelector('.popup__input_type_name');
+export const profileJobInput = profileForm.querySelector('.popup__input_type_description');
+
+const submitProfileButton = profileForm.querySelector('.popup__button');
 
 export function handleProfileSubmit(evt) {
   evt.preventDefault();

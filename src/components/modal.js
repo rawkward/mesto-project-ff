@@ -1,5 +1,5 @@
-import { profileTitle, profileDescription, profileFormElement, profileNameInput, profileJobInput } from "./submitProfile";
-import { cardFormElement, cardNameInput, cardLinkInput } from "./submitCard";
+import { profileTitle, profileDescription, profileNameInput, profileJobInput } from "./submitProfile";
+import { validationConfig } from "./validation";
 
 const popupImage = document.querySelector('.popup__image');
 const popupCaption = document.querySelector('.popup__caption');
@@ -14,9 +14,12 @@ export function fillProfileInputs() {
   profileJobInput.value = profileDescription.textContent;
 }
 
-export function clearCardInputs() {
-  cardNameInput.value = '';
-  cardLinkInput.value = '';
+export function clearInputs(formElement) {
+  const inputList = Array.from(formElement.querySelectorAll(validationConfig.inputSelector));
+
+  inputList.forEach((input) => {
+    input.value = '';
+  });
 }
 
 export function fillCardData(cardImage, cardTitle) {
