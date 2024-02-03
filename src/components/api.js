@@ -41,13 +41,13 @@ export const getCards = () => {
   })
 }
 
-export const saveUserData = () => {
+export const saveUserData = (profileNameInput, profileJobInput) => {
   return fetch(`${config.baseUrl}/users/me`, {
     method: 'PATCH',
     headers: config.headers,
     body: JSON.stringify({
-      name: profileTitle.textContent,
-      about: profileDescription.textContent
+      name: profileNameInput.value,
+      about: profileJobInput.value
     })
   })
 

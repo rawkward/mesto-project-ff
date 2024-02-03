@@ -16,13 +16,11 @@ export function handleProfileSubmit(evt) {
 
   renderLoading(true, submitProfileButton);
 
-  const name = profileNameInput.value;
-  const job = profileJobInput.value;
-
-  profileTitle.textContent = name;
-  profileDescription.textContent = job;
-
-  saveUserData()
+  saveUserData(profileNameInput, profileJobInput)
+  .then(() => {
+    profileTitle.textContent = profileNameInput.value;
+    profileDescription.textContent = profileJobInput.value;
+  })
   .catch(err => console.log(err))
   .finally(() => renderLoading(false, submitProfileButton));
   closePopup(popupEdit);
