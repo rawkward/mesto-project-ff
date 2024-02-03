@@ -1,11 +1,33 @@
 import './pages/index.css';
-import { getUserData, getCards} from './components/api.js';
+import { getUserData, getCards } from './components/api.js';
 import { fillUserData, addCards } from './components/pageLoad.js';
-import { updateAvatarForm, updateAvatarButton, popupUpdateAvatar, handleUpdateAvatarSubmit } from './components/submitAvatar.js';
-import { popupEdit, profileForm, handleProfileSubmit } from './components/submitProfile.js';
-import { popupNewCard, newPlaceForm, handleCardSubmit } from './components/submitCard.js';
-import { enableValidation, clearValidation, validationConfig } from './components/validation.js';
-import { openPopup, closePopup, fillProfileInputs, clearInputs } from './components/modal.js';
+import {
+  updateAvatarForm,
+  updateAvatarButton,
+  popupUpdateAvatar,
+  handleUpdateAvatarSubmit,
+} from './components/submitAvatar.js';
+import {
+  popupEdit,
+  profileForm,
+  handleProfileSubmit,
+} from './components/submitProfile.js';
+import {
+  popupNewCard,
+  newPlaceForm,
+  handleCardSubmit,
+} from './components/submitCard.js';
+import {
+  enableValidation,
+  clearValidation,
+  validationConfig,
+} from './components/validation.js';
+import {
+  openPopup,
+  closePopup,
+  fillProfileInputs,
+  clearInputs,
+} from './components/modal.js';
 
 const profileEditButton = document.querySelector('.profile__edit-button');
 const profileAddButton = document.querySelector('.profile__add-button');
@@ -16,13 +38,13 @@ function handleEditClick() {
   openPopup(popupEdit);
   fillProfileInputs();
   clearValidation(profileForm, validationConfig);
-};
+}
 
 function handleNewCardClick() {
   openPopup(popupNewCard);
   clearInputs(newPlaceForm);
   clearValidation(newPlaceForm, validationConfig);
-};
+}
 
 function handleUpdateAvatarClick() {
   openPopup(popupUpdateAvatar);
@@ -43,7 +65,7 @@ popups.forEach((popup) => {
     if (evt.target.classList.contains('popup__close')) {
       closePopup(popup);
     }
-  })
+  });
 });
 
 profileForm.addEventListener('submit', handleProfileSubmit);
@@ -60,4 +82,4 @@ Promise.all([getUserData(), getCards()])
     addCards(cardsArray, userId);
   })
 
-  .catch(err => console.log(err));
+  .catch((err) => console.log(err));
