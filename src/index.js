@@ -1,10 +1,5 @@
 import './pages/index.css';
-import { getUserData, getCards, saveAvatar, saveNewCard } from './components/api.js';
-import {
-  popupEdit,
-  profileForm,
-  handleProfileSubmit, profileNameInput, profileJobInput, profileTitle, profileDescription
-} from './components/submitProfile.js';
+import { getUserData, getCards, saveAvatar, saveNewCard, saveUserData } from './components/api.js';
 import { createCard, deleteCard, handleImageClick, likeCard, cardContainer } from './components/card.js';
 import {
   enableValidation,
@@ -16,6 +11,7 @@ import {
   closePopup
 } from './components/modal.js';
 import { renderLoading } from './components/utils.js';
+
 
 let userId;
 
@@ -34,6 +30,19 @@ const avatarLinkInput = updateAvatarForm.querySelector(
 );
 const submitAvatarButton = updateAvatarForm.querySelector('.popup__button');
 
+const profileTitle = document.querySelector('.profile__title');
+const profileDescription = document.querySelector(
+  '.profile__description'
+);
+const profileForm = document.forms['edit-profile'];
+const profileNameInput = profileForm.querySelector(
+  '.popup__input_type_name'
+);
+const profileJobInput = profileForm.querySelector(
+  '.popup__input_type_description'
+);
+const submitProfileButton = profileForm.querySelector('.popup__button');
+
 const popupNewCard = document.querySelector('.popup_type_new-card');
 const newPlaceForm = document.forms['new-place'];
 const cardNameInput = newPlaceForm.querySelector(
@@ -43,6 +52,8 @@ const cardLinkInput = newPlaceForm.querySelector(
   '.popup__input_type_url'
 );
 const submitCardButton = newPlaceForm.querySelector('.popup__button');
+
+const popupEdit = document.querySelector('.popup_type_edit');
 
 
 function handleUpdateAvatarClick() {
@@ -77,6 +88,21 @@ function handleUpdateAvatarSubmit(evt) {
     .finally(() => renderLoading(false, submitAvatarButton));
 }
 
+function handleProfileSubmit(evt) {
+  evt.preventDefault();
+
+  renderLoading(true, submitProfileButton);
+
+  saveUserData(profileNameInput, profileJobInput)
+    .then(() => {
+      profileTitle.textContent = profileNameInput.value;
+      profileDescription.textContent = profileJobInput.value;
+      closePopup(popupEdit);
+    })
+    .catch((err) => console.log(err))
+    .finally(() => renderLoading(false, submitProfileButton));
+}
+
 function handleCardSubmit(evt) {
   evt.preventDefault();
 
@@ -108,7 +134,6 @@ function handleCardSubmit(evt) {
   .catch((err) => console.log(err))
   .finally(() => renderLoading(false, submitCardButton));
 }
-
 
 function fillProfileInputs() {
   profileNameInput.value = profileTitle.textContent;
