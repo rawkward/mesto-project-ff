@@ -1,5 +1,6 @@
 import { saveUserData } from './api';
 import { closePopup } from './modal';
+import { renderLoading } from './utils';
 
 export const profileTitle = document.querySelector('.profile__title');
 export const profileDescription = document.querySelector(
@@ -31,12 +32,4 @@ export function handleProfileSubmit(evt) {
     })
     .catch((err) => console.log(err))
     .finally(() => renderLoading(false, submitProfileButton));
-}
-
-export function renderLoading(isLoading, submitButton) {
-  if (isLoading) {
-    submitButton.textContent = 'Сохранение...';
-  } else {
-    submitButton.textContent = 'Сохранить';
-  }
 }
