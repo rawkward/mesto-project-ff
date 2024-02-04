@@ -17,6 +17,8 @@ import {
 } from './components/modal.js';
 import { renderLoading } from './components/utils.js';
 
+let userId;
+
 const profileEditButton = document.querySelector('.profile__edit-button');
 const profileAddButton = document.querySelector('.profile__add-button');
 
@@ -80,37 +82,33 @@ function handleCardSubmit(evt) {
 
   renderLoading(true, submitCardButton);
 
-  const name = cardNameInput.value;
-  const link = cardLinkInput.value;
+  const newCardObject = {
+    name: cardNameInput.value,
+    link: cardLinkInput.value,
+    likes: [],
+    owner: {
+      _id: userId,
+    }
+  }
 
-  getUserData()
-    .then((res) => {
-      const userId = res._id;
-      const newCardObject = {
-        name: name,
-        link: link,
-        likes: [],
-        owner: {
-          _id: userId,
-        },
-      };
-      return saveNewCard(name, link).then((res) => {
-        newCardObject._id = res._id;
-        const newCard = createCard(
-          newCardObject,
-          userId,
-          deleteCard,
-          handleImageClick,
-          likeCard
-        );
-        cardContainer.prepend(newCard);
-        newPlaceForm.reset();
-        closePopup(popupNewCard);
-      });
-    })
-    .catch((err) => console.log(err))
-    .finally(() => renderLoading(false, submitCardButton));
+  saveNewCard(newCardObject.name, newCardObject.link)
+  .then((res) => {
+    newCardObject._id = res._id;
+    const newCard = createCard(
+      newCardObject,
+      userId,
+      deleteCard,
+      handleImageClick,
+      likeCard
+    );
+    cardContainer.prepend(newCard);
+    newPlaceForm.reset();
+    closePopup(popupNewCard);
+  })
+  .catch((err) => console.log(err))
+  .finally(() => renderLoading(false, submitCardButton));
 }
+
 
 function fillProfileInputs() {
   profileNameInput.value = profileTitle.textContent;
@@ -162,7 +160,7 @@ Promise.all([getUserData(), getCards()])
 
   .then(([userData, cardsArray]) => {
     fillUserData(userData);
-    const userId = userData._id;
+    userId = userData._id;
     addCards(cardsArray, userId);
   })
 
