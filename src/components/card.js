@@ -44,8 +44,10 @@ export function createCard(
       deleteCard(cardObject, cardElement)
     );
   }
-  
-  cardImage.addEventListener('click', () => handleImageClick(cardImage, cardTitle));
+
+  cardImage.addEventListener('click', () =>
+    handleImageClick(cardImage, cardTitle)
+  );
   likeButton.addEventListener('click', () =>
     likeCard(cardObject, likeButton, likeCounter)
   );
@@ -65,7 +67,7 @@ export function handleImageClick(cardImage, cardTitle) {
   popupImage.src = cardImage.src;
   popupImage.alt = cardImage.alt;
   popupCaption.textContent = cardTitle.textContent;
-};
+}
 
 export function deleteCard(cardObject, cardElement) {
   openPopup(popupConfirm);
