@@ -1,6 +1,5 @@
 import './pages/index.css';
 import { getUserData, getCards } from './components/api.js';
-import { fillUserData, addCards } from './components/pageLoad.js';
 import {
   updateAvatarForm,
   updateAvatarButton,
@@ -10,8 +9,9 @@ import {
 import {
   popupEdit,
   profileForm,
-  handleProfileSubmit,
+  handleProfileSubmit, profileNameInput, profileJobInput, profileTitle, profileDescription
 } from './components/submitProfile.js';
+import { createCard, deleteCard, handleImageClick, likeCard, cardContainer } from './components/card.js';
 import {
   popupNewCard,
   newPlaceForm,
@@ -24,9 +24,7 @@ import {
 } from './components/validation.js';
 import {
   openPopup,
-  closePopup,
-  fillProfileInputs,
-  clearInputs,
+  closePopup
 } from './components/modal.js';
 
 const profileEditButton = document.querySelector('.profile__edit-button');
@@ -42,15 +40,41 @@ function handleEditClick() {
 
 function handleNewCardClick() {
   openPopup(popupNewCard);
-  clearInputs(newPlaceForm);
+  newPlaceForm.reset();
   clearValidation(newPlaceForm, validationConfig);
 }
 
 function handleUpdateAvatarClick() {
   openPopup(popupUpdateAvatar);
-  clearInputs(updateAvatarForm);
+  updateAvatarForm.reset();
   clearValidation(updateAvatarForm, validationConfig);
 }
+
+function fillProfileInputs() {
+  profileNameInput.value = profileTitle.textContent;
+  profileJobInput.value = profileDescription.textContent;
+}
+
+const fillUserData = (user) => {
+  updateAvatarButton.style = `background-image: url(${user.avatar})`;
+  profileTitle.textContent = user.name;
+  profileDescription.textContent = user.about;
+};
+
+function addCards(CardsArray, userId) {
+  CardsArray.forEach((cardObject) => {
+    const cardElement = createCard(
+      cardObject,
+      userId,
+      deleteCard,
+      handleImageClick,
+      likeCard
+    );
+    cardContainer.append(cardElement);
+  });
+}
+
+enableValidation(validationConfig);
 
 profileEditButton.addEventListener('click', handleEditClick);
 profileAddButton.addEventListener('click', handleNewCardClick);
@@ -71,8 +95,6 @@ popups.forEach((popup) => {
 profileForm.addEventListener('submit', handleProfileSubmit);
 newPlaceForm.addEventListener('submit', handleCardSubmit);
 updateAvatarForm.addEventListener('submit', handleUpdateAvatarSubmit);
-
-enableValidation(validationConfig);
 
 Promise.all([getUserData(), getCards()])
 

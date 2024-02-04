@@ -4,13 +4,15 @@ import {
   removeLikeCardRequest,
 } from './api';
 import { closePopup, openPopup } from './modal';
-import { fillCardData } from './modal';
 
 export const cardContainer = document.querySelector('.places__list');
 export const popupCard = document.querySelector('.popup_type_image');
 
 const popupConfirm = document.querySelector('.popup_type_confirm');
 const confirmButton = popupConfirm.querySelector('.popup__button');
+
+const popupImage = document.querySelector('.popup__image');
+const popupCaption = document.querySelector('.popup__caption');
 
 export function createCard(
   cardObject,
@@ -54,7 +56,9 @@ export function createCard(
 
 export function handleImageClick(cardImage, cardTitle) {
   openPopup(popupCard);
-  fillCardData(cardImage, cardTitle);
+  popupImage.src = cardImage.src;
+  popupImage.alt = cardImage.alt;
+  popupCaption.textContent = cardTitle.textContent;
 };
 
 export function deleteCard(cardObject, cardElement) {
