@@ -21,8 +21,8 @@ export function createCard(
   handleImageClick,
   likeCard
 ) {
-  const cardTemplate = document.querySelector('#card-template').content;
-  const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
+  const cardElement = getCardTemplate();
+
   const cardImage = cardElement.querySelector('.card__image');
   const cardTitle = cardElement.querySelector('.card__title');
   const deleteButton = cardElement.querySelector('.card__delete-button');
@@ -51,6 +51,12 @@ export function createCard(
   );
 
   showUserLikes(cardObject, userId, likeButton);
+  return cardElement;
+}
+
+export function getCardTemplate() {
+  const cardTemplate = document.querySelector('#card-template').content;
+  const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
   return cardElement;
 }
 
