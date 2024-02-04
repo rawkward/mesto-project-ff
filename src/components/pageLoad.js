@@ -1,5 +1,5 @@
 import { profileTitle, profileDescription } from './submitProfile';
-import { createCard, cardContainer, deleteCard, likeCard } from './card';
+import { createCard, cardContainer, deleteCard, likeCard, handleImageClick } from './card';
 import { openPopup } from './modal';
 import { updateAvatarButton } from './submitAvatar';
 
@@ -15,7 +15,7 @@ export function addCards(CardsArray, userId) {
       cardObject,
       userId,
       deleteCard,
-      openPopup,
+      handleImageClick,
       likeCard
     );
     cardContainer.append(cardElement);

@@ -16,7 +16,7 @@ export function createCard(
   cardObject,
   userId,
   deleteCard,
-  openPopup,
+  handleImageClick,
   likeCard
 ) {
   const cardTemplate = document.querySelector('#card-template').content;
@@ -30,6 +30,8 @@ export function createCard(
   cardImage.src = cardObject.link;
   cardImage.alt = `Изображение локации ${cardObject.name}`;
   cardTitle.textContent = cardObject.name;
+  deleteButton.classList.add('card__delete-button_inactive');
+  deleteButton.disabled = true;
 
   showLikes(cardObject, likeCounter);
 
@@ -39,17 +41,9 @@ export function createCard(
     deleteButton.addEventListener('click', () =>
       deleteCard(cardObject, cardElement)
     );
-  } else {
-    deleteButton.classList.add('card__delete-button_inactive');
-    deleteButton.disabled = true;
   }
-
-  function handleImageClick() {
-    openPopup(popupCard);
-    fillCardData(cardImage, cardTitle);
-  }
-
-  cardImage.addEventListener('click', handleImageClick);
+  
+  cardImage.addEventListener('click', () => handleImageClick(cardImage, cardTitle));
   likeButton.addEventListener('click', () =>
     likeCard(cardObject, likeButton, likeCounter)
   );
@@ -57,6 +51,11 @@ export function createCard(
   showUserLikes(cardObject, userId, likeButton);
   return cardElement;
 }
+
+export function handleImageClick(cardImage, cardTitle) {
+  openPopup(popupCard);
+  fillCardData(cardImage, cardTitle);
+};
 
 export function deleteCard(cardObject, cardElement) {
   openPopup(popupConfirm);

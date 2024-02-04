@@ -1,5 +1,5 @@
 import { openPopup, closePopup } from './modal';
-import { createCard, deleteCard, likeCard, cardContainer } from './card';
+import { createCard, deleteCard, likeCard, cardContainer, handleImageClick } from './card';
 import { getUserData, saveNewCard } from './api';
 import { renderLoading } from './submitProfile';
 
@@ -39,7 +39,7 @@ export function handleCardSubmit(evt) {
           newCardObject,
           userId,
           deleteCard,
-          openPopup,
+          handleImageClick,
           likeCard
         );
         cardContainer.prepend(newCard);
