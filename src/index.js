@@ -145,8 +145,8 @@ const fillUserData = (user) => {
   profileDescription.textContent = user.about;
 };
 
-function addCards(CardsArray, userId) {
-  CardsArray.forEach((cardObject) => {
+function addCards(card, userId) {
+  card.forEach((cardObject) => {
     const cardElement = createCard(
       cardObject,
       userId,
@@ -182,10 +182,10 @@ updateAvatarForm.addEventListener('submit', handleUpdateAvatarSubmit);
 
 Promise.all([getUserData(), getCards()])
 
-  .then(([userData, cardsArray]) => {
+  .then(([userData, card]) => {
     fillUserData(userData);
     userId = userData._id;
-    addCards(cardsArray, userId);
+    addCards(card, userId);
   })
 
   .catch((err) => console.log(err));
